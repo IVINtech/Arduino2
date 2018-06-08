@@ -38,22 +38,22 @@ board.on('ready',()=>{
   io.on("connection",(socket)=>{
     console.log("New User connectnted");
     
-    const intervalGET=setInterval(()=>{
-      try {
-        client.get("http://192.168.2.100/clock", function (data, response) {
-          if (data.clock!=0) {
-            socket.emit('valor',data.clock);
-          }
-        });
-      } catch (error) {
-        console.log(error); 
-      }
-    },1000);
-    //socket.emit('valor',60);
+    // const intervalGET=setInterval(()=>{
+    //   try {
+    //     client.get("http://192.168.2.100/clock", function (data, response) {
+    //       if (data.clock!=0) {
+    //         socket.emit('valor',data.clock);
+    //       }
+    //     });
+    //   } catch (error) {
+    //     console.log(error); 
+    //   }
+    // },1000);
+    socket.emit('valor',60);
   
     socket.on('disconnect',()=>{
       console.log("User disconnected");
-      clearInterval(intervalGET);
+      // clearInterval(intervalGET);
     });
   });
   
