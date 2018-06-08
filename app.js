@@ -30,7 +30,7 @@ app.get('/',(req,res)=>{
   res.render('index.hbs')
 });
 
-board.on('ready',()=>{
+// board.on('ready',()=>{
 
   var button=new five.Button(7);
   var button=new five.Button(6);
@@ -58,7 +58,7 @@ board.on('ready',()=>{
   });
   
 
-});
+// });
 
 
 
