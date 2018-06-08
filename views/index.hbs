@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Control WiFi</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"> -->
+	<link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="twelve columns" style="margin-top:5%">
+				<h2 style="align-content: center">Parking IoT</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="six columns" style="align-content: center">
+				<h5>Lugares ocupados</h5>
+				<h1 id="counter"></h1>
+			</div>
+			<div class="six columns" style="align-content: center">
+				<h5>Lugares Desocupados</h5>
+				<h1 id="counter2"></h1>
+			</div>
+		</div>
+		<div class="row">
+			
+			<button class="button-primry" id="CierreEmergencia" style="size: 20px">Cierre emergencia</button>
+			{{!-- <button class="buttton-primary" id="Prende2">Prende 2</button> --}}
+		</div>
+	</div>
+	
+	<script src="js/index.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var lugares=100;
+		var socket=io();
+		var data;
+		socket.on('connect',()=>{
+			console.log('connected');
+		});
+		socket.on('valor',(valor)=>{
+			console.log(valor);
+			//data=valor;
+			var h1=document.getElementById('counter');
+			var h2=document.getElementById('counter2');
+			h1.textContent=valor;
+			h2.textContent=lugares-valor;
+			if(h2.textContent>=20){
+				h2.style.color="green"
+			}else if((h2.textContent>=10)&&(h2.textContent<20)){
+				h2.style.color="orange"
+			}else if(h2.textContent<10){
+				h2.style.color="red"
+			}
+		});
+		socket.on('disconnect',()=>{
+			console.log('disconnected from server');
+		});
+	</script>
+</body>
+</html>
